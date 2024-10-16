@@ -1,0 +1,55 @@
+<%- include('header'); %>
+<%- include('nav'); %>
+<main>
+<h3>Sign Up</h3>
+
+<% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger">
+        <p><%= error %></p>
+    </div>
+<% } %>
+
+<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div class="alert alert-danger">
+        <% errors.forEach(function(error) { %>
+            <p><%= error.msg %></p>
+        <% }); %>
+    </div>
+<% } %>
+
+<form action="/register" method="POST">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="<%= typeof username != 'undefined' ? username : '' %>" required>
+        <% if (typeof errors !== 'undefined' && errors.find(e => e.param === 'username')) { %>
+            <p class="error"><%= errors.find(e => e.param === 'username').msg %></p>
+        <% } %>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <% if (typeof errors !== 'undefined' && errors.find(e => e.param === 'password')) { %>
+            <p class="error"><%= errors.find(e => e.param === 'password').msg %></p>
+        <% } %>
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="<%= typeof email != 'undefined' ? email : '' %>" required>
+        <% if (typeof errors !== 'undefined' && errors.find(e => e.param === 'email')) { %>
+            <p class="error"><%= errors.find(e => e.param === 'email').msg %></p>
+        <% } %>
+    </div>
+
+    <div>
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone" id="phone" value="<%= typeof phone != 'undefined' ? phone : '' %>" required>
+        <% if (typeof errors !== 'undefined' && errors.find(e => e.param === 'phone')) { %>
+            <p class="error"><%= errors.find(e => e.param === 'phone').msg %></p>
+        <% } %>
+    </div>
+
+    <button class="btn btn-success" type="submit">Submit</button>
+</form>
+</main>
